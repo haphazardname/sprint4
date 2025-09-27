@@ -22,7 +22,7 @@ func parsePackage(data string) (int, time.Duration, error) {
 	}
 
 	steps, err := strconv.Atoi(dataSlice[0])
-	if err != nil || steps == 0 {
+	if err != nil || steps <= 0 {
 		return 0, 0, errors.New("Ошибка преобразования шагов: " + err.Error())
 	}
 
@@ -36,11 +36,11 @@ func parsePackage(data string) (int, time.Duration, error) {
 
 func DayActionInfo(data string, weight, height float64) string {
 	steps, trainDur, err := parsePackage(data)
-	if err != nil || steps == 0 {
+	if err != nil || steps <= 0 {
 		return ""
 	}
 	distance := (stepLength * float64(steps)) / mInKm
-	calories := WalkingSpentCalories(trainDur)
+	calories := WalkingSpentCalories(steps, weight, height, trainDur)
 
-	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %d км.\nВы сожгли %d ккал.", steps, distance, calories)
+	return fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.", steps, distance, calories)
 }
