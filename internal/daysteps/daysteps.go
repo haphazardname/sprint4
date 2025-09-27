@@ -3,7 +3,7 @@ package daysteps
 import (
 	"errors"
 	"fmt"
-	"internal/spentcalories"
+	"spentcalories"
 	"strconv"
 	"strings"
 	"time"
